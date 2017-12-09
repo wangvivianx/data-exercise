@@ -1,0 +1,81 @@
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy
+%pylab inline
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import seaborn as sns
+% = Populating the interactive namespace from numpy and matplotlib
+
+data = pd.read_csv('C:/Users/vivian.wang1/Desktop/Dataset_Exercise.csv')
+data.iloc[:5, :10]
+
+from pydoc import help
+from scipy.stats.stats import pearsonr
+#help(pearsonr)
+
+data2 = data.loc[:, ['CITY_D','ZIP_D','ListPrice','BEDS','BATHS','LOCATION_D','SQFT','LotSize',
+                     'YearBuilt','ParkingSpots','Garage_D','DOM','LastSaleDate','SoldPrev_D','Realty_D','ShortSale_D']]
+data2
+
+#pd.plotting.scatter_matrix(data2, alpha = 0.3, figsize = (14,8), diagonal = 'kde')
+
+corr=data2.corr(method='pearson')
+corr
+
+#export above table into csv file
+corr.to_csv('a.csv')
+
+from string import ascii_letters
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set(style="white")
+
+##Categorical Variable Correlation Assessment
+
+city = smf.ols('ListPrice ~ C(CITY_D)', data=data2).fit()
+print (city.summary())
+sqrt(0.013)
+
+zip = smf.ols('ListPrice ~ C(ZIP_D)', data=data2).fit()
+print (zip.summary())
+sqrt(0.401)
+
+garage = smf.ols('ListPrice ~ C(Garage_D)', data=data2).fit()
+print (garage.summary())
+sqrt(0.005)
+
+soldprev = smf.ols('ListPrice ~ C(SoldPrev_D)', data=data2).fit()
+print (soldprev.summary())
+
+realty = smf.ols('ListPrice ~ C(Realty_D)', data=data2).fit()
+print (realty.summary())
+sqrt(0.045)
+
+short = smf.ols('ListPrice ~ C(ShortSale_D)', data=data2).fit()
+print (short.summary())
+sqrt(0.008)
+
+location = smf.ols('ListPrice ~ C(LOCATION_D)', data=data2).fit()
+print (location.summary())
+sqrt(0.522)
+
+SQFT= smf.ols('ListPrice ~ SQFT', data=data2).fit()
+print (SQFT.summary())
+
+SQFT2= smf.ols('ListPrice ~ I(SQFT**2)', data=data2).fit()
+print (SQFT2.summary())
+#scatter plot
+SQFT2scat = sns.regplot(x="SQFT", y="ListPrice", scatter=True, data=data2)
+plt.xlabel('SQFT')
+plt.ylabel('ListPrice')
+
+SQFT2scat2 = sns.regplot(x="SQFT", y="ListPrice", scatter=True, data=data2, order=2)
+plt.xlabel('SQFT')
+plt.ylabel('ListPrice')
+print(SQFT2scat)
+print(SQFT2scat)

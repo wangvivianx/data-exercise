@@ -1,3 +1,5 @@
+# Import libraries
+
 %matplotlib inline
 import matplotlib.pyplot as plt
 import numpy
@@ -6,7 +8,7 @@ import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import seaborn as sns
-% = Populating the interactive namespace from numpy and matplotlib
+# % = Populating the interactive namespace from numpy and matplotlib - enables you to visualize data in Jupyter Notebook
 
 data = pd.read_csv('C:/Users/vivian.wang1/Desktop/Dataset_Exercise.csv')
 data.iloc[:5, :10]
